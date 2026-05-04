@@ -1,3 +1,10 @@
+sql files not mine to distribute 
+
+sql-wasm.js
+sql-wasm.wasm
+*.db
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
