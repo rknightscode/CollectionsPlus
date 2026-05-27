@@ -1,0 +1,40 @@
+{
+  "manifest_version": 3,
+  "name": "Collections+",
+  "version": "1.0.0",
+  "description": "Your personal saved pages and collections manager",
+  "permissions": [
+    "activeTab",
+    "tabs",
+    "tabGroups",
+    "storage",
+    "alarms",
+    "contextMenus",
+    "scripting",
+    "history",
+    "sidePanel"
+  ],
+  "host_permissions": ["<all_urls>"],
+  "action": {
+    "default_title": "Collections+",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "side_panel": {
+    "default_path": "popup.html"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "web_accessible_resources": [{
+    "resources": ["sql-wasm.wasm"],
+    "matches": ["<all_urls>"]
+  }]
+}

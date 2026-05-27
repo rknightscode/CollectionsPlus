@@ -1,0 +1,1553 @@
+/* ─────────────────────────────────────────────────────────────
+   Collections+ — popup stylesheet
+   Dark slate, warm amber accents. Segoe UI (native on Windows/Edge).
+───────────────────────────────────────────────────────────────*/
+
+:root {
+  --bg:           #15171c;
+  --surface:      #1e2229;
+  --surface-2:    #252b35;
+  --border:       #2b3040;
+  --border-light: #353d50;
+  --accent:       #e8963c;
+  --accent-dim:   #a8622a;
+  --accent-glow:  rgba(232, 150, 60, 0.15);
+  --text:         #dde3f0;
+  --text-muted:   #6b7a94;
+  --text-dim:     #4a566a;
+  --danger:       #d64f4f;
+  --danger-dim:   #9c3535;
+  --success:      #5cb85c;
+  --radius:       10px;
+  --radius-sm:    6px;
+  --transition:   0.15s ease;
+
+  /* Sidebar fills the browser window — no fixed dimensions */
+  --font-base:     15px;
+  --font-sm:       13px;
+  --font-xs:       12px;
+  --font-2xs:      11px;
+  --font-3xs:      10px;
+  --thumb-w:       96px;
+  --thumb-h:       64px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100vh;
+  max-height: 100vh;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  font-size: var(--font-base);
+  background: var(--bg);
+  color: var(--text);
+  overflow: hidden;
+}
+
+/* ─── Views ─────────────────────────────────────────────── */
+
+.view {
+  display: none;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  max-height: 100vh;
+}
+
+.view.active {
+  display: flex;
+}
+
+/* ─── Header ─────────────────────────────────────────────── */
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px 12px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  flex-shrink: 0;
+}
+
+.app-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--text);
+}
+
+.app-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: var(--accent);
+  color: #1a1005;
+  font-weight: 800;
+  font-size: 13px;
+  border-radius: 6px;
+}
+
+.col-header {
+  justify-content: flex-start;
+  gap: 14px;
+}
+
+.col-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+}
+
+.col-view-name {
+  font-size: 16px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.col-dot-lg {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ─── Buttons ────────────────────────────────────────────── */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: var(--font-sm);
+  font-weight: 500;
+  transition: background var(--transition), opacity var(--transition);
+  white-space: nowrap;
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #1a1005;
+  padding: 8px 18px;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: #f5a84a;
+}
+
+.btn-ghost {
+  background: var(--surface-2);
+  color: var(--text);
+  padding: 8px 14px;
+  border: 1px solid var(--border);
+}
+
+.btn-ghost:hover:not(:disabled) {
+  background: var(--border);
+}
+
+.btn-danger {
+  background: var(--danger);
+  color: #fff;
+  padding: 8px 18px;
+}
+
+.btn-danger:hover:not(:disabled) {
+  background: #e05555;
+}
+
+.btn-sm  { font-size: var(--font-sm);  padding: 6px 14px; }
+.btn-lg  { font-size: 16px;            padding: 12px 28px; }
+
+.icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 5px 6px;
+  border-radius: var(--radius-sm);
+  opacity: 0.5;
+  transition: opacity var(--transition), background var(--transition);
+  line-height: 1;
+}
+
+.icon-btn:hover {
+  opacity: 1;
+  background: var(--border);
+}
+
+/* ─── Scroll area ─────────────────────────────────────────── */
+
+.scroll-area {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 8px 0;
+}
+
+.scroll-area::-webkit-scrollbar { width: 6px; }
+.scroll-area::-webkit-scrollbar-track { background: transparent; }
+.scroll-area::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: 3px; }
+
+/* ─── Loading ─────────────────────────────────────────────── */
+
+.loading-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  gap: 16px;
+  color: var(--text-muted);
+  font-size: var(--font-base);
+}
+
+.spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ─── Setup view ──────────────────────────────────────────── */
+
+.setup-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  padding: 32px 24px;
+  text-align: center;
+  gap: 16px;
+}
+
+.setup-logo {
+  width: 64px;
+  height: 64px;
+  background: var(--accent);
+  color: #1a1005;
+  font-size: 24px;
+  font-weight: 800;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.setup-wrap h1 {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.setup-intro {
+  color: var(--text-muted);
+  line-height: 1.6;
+  font-size: var(--font-base);
+  max-width: 480px;
+}
+
+.setup-path {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 8px 18px;
+  font-size: var(--font-sm);
+  color: var(--text-muted);
+}
+
+.setup-path code {
+  color: var(--accent);
+  font-family: 'Cascadia Code', 'Consolas', monospace;
+}
+
+.setup-note {
+  font-size: var(--font-xs);
+  color: var(--text-dim);
+  line-height: 1.5;
+}
+
+.setup-note code {
+  color: var(--text-muted);
+  font-family: 'Cascadia Code', 'Consolas', monospace;
+}
+
+/* ─── Collection rows ─────────────────────────────────────── */
+
+.collection-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 20px;
+  cursor: pointer;
+  border-bottom: 1px solid var(--border);
+  transition: background var(--transition);
+}
+
+.collection-row:hover {
+  background: var(--surface-2);
+}
+
+.collection-row:hover .col-edit,
+.collection-row:hover .col-delete {
+  opacity: 0.6;
+}
+
+.col-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.col-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.col-name {
+  font-weight: 500;
+  font-size: var(--font-base);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.col-desc {
+  font-size: var(--font-xs);
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.col-count {
+  font-size: var(--font-sm);
+  color: var(--text-muted);
+  min-width: 24px;
+  text-align: right;
+}
+
+.col-arrow {
+  font-size: 20px;
+  color: var(--text-dim);
+  line-height: 1;
+}
+
+/* ─── Collection actions bar ──────────────────────────────── */
+
+.col-actions {
+  display: flex;
+  gap: 10px;
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  flex-shrink: 0;
+}
+
+/* ─── Item rows ───────────────────────────────────────────── */
+
+.item-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 13px 20px;
+  border-bottom: 1px solid var(--border);
+  transition: background var(--transition);
+}
+
+.item-row:hover {
+  background: var(--surface-2);
+}
+
+.item-thumb {
+  width: var(--thumb-w);
+  height: var(--thumb-h);
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+  border: 1px solid var(--border);
+}
+
+.item-thumb-empty {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.item-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.item-title {
+  font-weight: 500;
+  font-size: var(--font-base);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--text);
+}
+
+.item-url {
+  font-size: var(--font-xs);
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.item-notes {
+  font-size: var(--font-xs);
+  color: var(--accent);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-style: italic;
+}
+
+.item-meta {
+  font-size: var(--font-2xs);
+  color: var(--text-dim);
+}
+
+.item-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex-shrink: 0;
+}
+
+/* ─── Empty states ────────────────────────────────────────── */
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 60px 32px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: var(--font-base);
+  line-height: 1.6;
+}
+
+.empty-icon {
+  font-size: 40px;
+  opacity: 0.5;
+}
+
+/* ─── Modals ──────────────────────────────────────────────── */
+
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-overlay.open {
+  display: flex;
+}
+
+.modal-box {
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  padding: 24px;
+  width: 100%;
+  max-width: min(480px, calc(100% - 24px));
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+}
+
+.modal-box h2 {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+/* ─── Form fields ─────────────────────────────────────────── */
+
+.field-label {
+  font-size: var(--font-xs);
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  display: block;
+  margin-bottom: -6px;
+}
+
+.optional {
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--text-dim);
+}
+
+.field-input,
+.field-textarea {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-family: inherit;
+  font-size: var(--font-base);
+  padding: 9px 12px;
+  outline: none;
+  transition: border-color var(--transition);
+}
+
+.field-input:focus,
+.field-textarea:focus {
+  border-color: var(--accent);
+}
+
+.field-input.error {
+  border-color: var(--danger);
+}
+
+.field-textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+
+/* ─── Colour swatches ─────────────────────────────────────── */
+
+.swatch-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.swatch {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform var(--transition), border-color var(--transition);
+}
+
+.swatch:hover { transform: scale(1.15); }
+
+.swatch.active {
+  border-color: #fff;
+  transform: scale(1.15);
+  box-shadow: 0 0 0 2px var(--bg);
+}
+
+/* ─── Item modal specific ─────────────────────────────────── */
+
+.modal-item-box {
+  max-height: 620px;
+  overflow-y: auto;
+}
+
+.modal-thumb {
+  width: 100%;
+  height: 160px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.thumb-placeholder {
+  font-size: var(--font-sm);
+  color: var(--text-dim);
+}
+
+.item-date-meta {
+  font-size: var(--font-xs);
+  color: var(--text-dim);
+  margin-top: -4px;
+}
+
+/* ─── Confirm modal ───────────────────────────────────────── */
+
+.modal-confirm-box {
+  text-align: center;
+  max-width: 360px;
+}
+
+.confirm-icon {
+  font-size: 32px;
+  margin-bottom: 4px;
+}
+
+.modal-confirm-box p {
+  color: var(--text-muted);
+  line-height: 1.5;
+  font-size: var(--font-base);
+}
+
+/* ─── Header actions group ────────────────────────────────── */
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ─── Backup status box ───────────────────────────────────── */
+
+.backup-status-box {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.backup-status-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.backup-status-label {
+  font-size: var(--font-xs);
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.backup-status-value {
+  font-size: var(--font-xs);
+  color: var(--text-dim);
+  text-align: right;
+}
+
+.status-ok { color: var(--success); }
+
+/* ─── Full-width buttons ──────────────────────────────────── */
+
+.btn-full {
+  width: 100%;
+  justify-content: center;
+}
+
+/* ─── Restore confirm meta ────────────────────────────────── */
+
+.restore-meta {
+  font-size: var(--font-xs);
+  color: var(--text-muted);
+  margin-top: -6px;
+}
+
+/* ─── Settings modal divider ──────────────────────────────── */
+
+.settings-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 4px 0;
+}
+
+.settings-section-label {
+  font-size: var(--font-xs);
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* ─── Order buttons (up/down arrows) ─────────────────────── */
+
+.col-order-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.order-btn {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 10px;
+  line-height: 1;
+  padding: 3px 5px;
+  transition: background var(--transition), color var(--transition), border-color var(--transition);
+}
+
+.order-btn:hover:not(:disabled) {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #1a1005;
+}
+
+.order-btn:disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
+}
+
+.item-row.reorder-mode .item-title { color: var(--text-muted); }
+
+.item-row.reorder-mode .item-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: center;
+}
+
+.item-row.reorder-mode .order-btn {
+  font-size: 13px;
+  padding: 5px 10px;
+  width: 42px;
+  text-align: center;
+}
+
+/* ─── Activity log ────────────────────────────────────────── */
+
+.log-section {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.log-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.log-count {
+  font-size: var(--font-3xs);
+  color: var(--text-dim);
+}
+
+.log-list {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  max-height: 180px;
+  overflow-y: auto;
+}
+
+.log-list::-webkit-scrollbar       { width: 4px; }
+.log-list::-webkit-scrollbar-track  { background: transparent; }
+.log-list::-webkit-scrollbar-thumb  { background: var(--border-light); border-radius: 2px; }
+
+.log-empty {
+  padding: 14px;
+  text-align: center;
+  font-size: var(--font-xs);
+  color: var(--text-dim);
+}
+
+.log-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+  font-size: var(--font-xs);
+}
+
+.log-row:last-child { border-bottom: none; }
+
+.log-indicator {
+  font-size: var(--font-2xs);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.log-ok   .log-indicator { color: var(--success); }
+.log-fail .log-indicator { color: var(--danger); }
+
+.log-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.log-action {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.log-fail .log-action { color: var(--danger); }
+
+.log-detail {
+  color: var(--text-muted);
+  font-size: var(--font-2xs);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.log-time {
+  font-size: var(--font-2xs);
+  color: var(--text-dim);
+  flex-shrink: 0;
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* ─── Toast notification ──────────────────────────────────── */
+
+.toast {
+  position: fixed;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  background: var(--surface-2);
+  border: 1px solid var(--border-light);
+  color: var(--text);
+  font-size: var(--font-sm);
+  padding: 8px 20px;
+  border-radius: 20px;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  pointer-events: none;
+  z-index: 200;
+}
+
+.toast.toast-error {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+.toast.toast-visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ─── Toast copy button ───────────────────────────────────── */
+
+.toast.toast-error {
+  border-color: var(--danger);
+  color: var(--danger);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  white-space: normal;
+  max-width: calc(100% - 32px);
+  text-align: left;
+  pointer-events: all;
+}
+
+.toast-msg {
+  flex: 1;
+  min-width: 0;
+  word-break: break-word;
+}
+
+.toast-copy {
+  background: transparent;
+  border: 1px solid var(--danger);
+  color: var(--danger);
+  font-size: var(--font-xs);
+  font-family: inherit;
+  padding: 3px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.toast-copy:hover {
+  background: var(--danger);
+  color: #fff;
+}
+
+/* ─── Paste import modal ──────────────────────────────────── */
+
+.modal-paste-box {
+  max-width: min(600px, calc(100% - 24px));
+  max-height: 640px;
+  overflow-y: auto;
+}
+
+.paste-intro {
+  font-size: var(--font-sm);
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.paste-intro strong {
+  color: var(--accent);
+}
+
+.paste-textarea {
+  min-height: 140px;
+  font-family: 'Cascadia Code', 'Consolas', monospace;
+  font-size: var(--font-xs);
+  line-height: 1.5;
+}
+
+.paste-preview {
+  min-height: 32px;
+}
+
+.paste-none {
+  font-size: var(--font-xs);
+  color: var(--text-dim);
+  font-style: italic;
+  padding: 6px 0;
+}
+
+.paste-count {
+  font-size: var(--font-xs);
+  color: var(--success);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.paste-item-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 6px;
+  background: var(--bg);
+}
+
+.paste-item-list::-webkit-scrollbar       { width: 4px; }
+.paste-item-list::-webkit-scrollbar-track  { background: transparent; }
+.paste-item-list::-webkit-scrollbar-thumb  { background: var(--border-light); border-radius: 2px; }
+
+.paste-item {
+  padding: 5px 8px;
+  border-radius: 4px;
+  border-bottom: 1px solid var(--border);
+}
+
+.paste-item:last-child { border-bottom: none; }
+
+.paste-item-title {
+  font-size: var(--font-sm);
+  font-weight: 500;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.paste-item-url {
+  font-size: var(--font-xs);
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ─── Search bar ──────────────────────────────────────────── */
+
+.search-bar-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  flex-shrink: 0;
+}
+
+.search-input {
+  flex: 1;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-right: none;
+  border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+  color: var(--text);
+  font-family: inherit;
+  font-size: var(--font-sm);
+  padding: 7px 12px;
+  outline: none;
+  transition: border-color var(--transition);
+}
+
+.search-input:focus {
+  border-color: var(--accent);
+}
+
+.search-input::placeholder {
+  color: var(--text-dim);
+}
+
+.search-clear {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-left: none;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 12px;
+  padding: 7px 10px;
+  display: flex;
+  align-items: center;
+  transition: background var(--transition), color var(--transition);
+  line-height: 1;
+}
+
+.search-clear:hover {
+  background: var(--border);
+  color: var(--text);
+}
+
+/* ─── Drag handle ─────────────────────────────────────────── */
+
+.drag-handle {
+  font-size: 16px;
+  color: var(--text-dim);
+  cursor: grab;
+  padding: 0 2px;
+  line-height: 1;
+  user-select: none;
+  transition: color var(--transition);
+}
+
+.drag-handle:hover {
+  color: var(--accent);
+}
+
+.collection-row.dragging {
+  opacity: 0.45;
+}
+
+.collection-row.drag-over {
+  background: var(--accent-glow);
+  border-color: var(--accent);
+  outline: 1px solid var(--accent);
+}
+
+
+/* ─── Collection reorder mode ─────────────────────────────── */
+
+.collection-row.col-reorder-mode {
+  cursor: default;
+}
+
+.collection-row.col-reorder-mode:hover {
+  background: var(--surface);
+}
+
+/* ─── Colour dot as open-all action ──────────────────────── */
+
+.col-dot-action {
+  cursor: pointer;
+  transition: transform var(--transition), box-shadow var(--transition);
+  flex-shrink: 0;
+}
+
+.col-dot-action:hover {
+  transform: scale(1.5);
+  box-shadow: 0 0 0 3px var(--border-light);
+}
+
+/* ─── Item count inline ───────────────────────────────────── */
+
+.col-count-inline {
+  font-weight: 400;
+  color: var(--text-muted);
+  font-size: 0.9em;
+}
+
+/* Remove old separate count span styling */
+.col-count { display: none; }
+
+/* ─── Drag handle (Bootstrap list icon, yellow) ───────────── */
+
+.drag-handle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+  cursor: grab;
+  padding: 2px 4px;
+  border-radius: 3px;
+  user-select: none;
+  transition: background var(--transition);
+}
+
+.drag-handle:hover {
+  background: var(--accent-glow);
+}
+
+.drag-handle:active {
+  cursor: grabbing;
+}
+
+.collection-row.dragging {
+  opacity: 0.4;
+  background: var(--surface-2);
+}
+
+.collection-row.drag-over {
+  background: var(--accent-glow);
+  outline: 1px dashed var(--accent);
+  outline-offset: -1px;
+}
+
+/* ─── Delete button (red) ─────────────────────────────────── */
+
+.btn-delete-red {
+  color: var(--danger) !important;
+  opacity: 0.7;
+}
+
+.btn-delete-red:hover {
+  opacity: 1 !important;
+  background: rgba(214, 79, 79, 0.15) !important;
+}
+
+
+/* ─── Open item button (green folder icon) ────────────────── */
+
+.btn-open-green {
+  color: var(--success) !important;
+  opacity: 0.75;
+}
+
+.btn-open-green:hover {
+  opacity: 1 !important;
+  background: rgba(91, 184, 92, 0.15) !important;
+}
+
+/* ─── Clickable thumbnails ────────────────────────────────── */
+
+.item-thumb-clickable {
+  cursor: pointer;
+  transition: opacity var(--transition), outline var(--transition);
+}
+
+.item-thumb-clickable:hover {
+  opacity: 0.8;
+  outline: 2px solid var(--success);
+  outline-offset: 1px;
+}
+
+
+/* ─── Update banner ───────────────────────────────────────── */
+
+.update-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(232, 150, 60, 0.12);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-sm);
+  padding: 9px 14px;
+  font-size: var(--font-sm);
+  color: var(--text);
+  width: 100%;
+  max-width: 420px;
+}
+
+.update-link {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+  white-space: nowrap;
+  margin-left: auto;
+}
+
+.update-link:hover {
+  text-decoration: underline;
+}
+
+.setup-version {
+  font-size: var(--font-xs);
+  color: var(--text-dim);
+  margin-top: -8px;
+}
+
+
+/* ─── TODO 1 / 3 additions ───────────────────────────────── */
+
+/* ─── Content-toggle active label ────────────────────────── */
+/* (handled entirely by btn-primary / btn-ghost toggle in JS) */
+
+/* ─── Item content status in meta line ───────────────────── */
+
+/* ─── Item modal content status line ─────────────────────── */
+
+.item-content-meta {
+  font-size: var(--font-xs);
+  color: var(--text-dim);
+  margin-top: -4px;
+  font-style: italic;
+}
+
+.item-content-meta.has-content {
+  color: var(--accent);
+}
+
+/* ─── Reader view button ──────────────────────────────────── */
+
+.btn-read-accent {
+  color: var(--accent) !important;
+  opacity: 0.75;
+}
+
+.btn-read-accent:hover {
+  opacity: 1 !important;
+  background: var(--accent-glow) !important;
+}
+
+/* ─── Collection actions — wrap on overflow ───────────────── */
+
+.col-actions {
+  flex-wrap: wrap;
+}
+
+/* ─── History Suggestions view ────────────────────────────── */
+
+.suggestions-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 20px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+
+.suggestions-range {
+  display: flex;
+  gap: 6px;
+}
+
+.suggestions-batch {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  flex-shrink: 0;
+}
+
+.suggestions-count {
+  font-size: var(--font-xs);
+  color: var(--text-muted);
+  margin-left: auto;
+  white-space: nowrap;
+}
+
+/* ─── Suggestion rows ─────────────────────────────────────── */
+
+.suggestion-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 11px 20px;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: background var(--transition);
+  user-select: none;
+}
+
+.suggestion-row:hover {
+  background: var(--surface-2);
+}
+
+.suggestion-check {
+  margin-top: 3px;
+  flex-shrink: 0;
+  accent-color: var(--accent);
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+}
+
+.suggestion-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.suggestion-title {
+  font-weight: 500;
+  font-size: var(--font-base);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--text);
+}
+
+.suggestion-url {
+  font-size: var(--font-xs);
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.suggestion-meta {
+  font-size: var(--font-2xs);
+  color: var(--text-dim);
+}
+
+/* ─── Collection picker select ────────────────────────────── */
+
+.field-select {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-family: inherit;
+  font-size: var(--font-sm);
+  padding: 7px 10px;
+  outline: none;
+  cursor: pointer;
+  transition: border-color var(--transition);
+  max-width: 240px;
+  min-width: 140px;
+}
+
+.field-select:focus {
+  border-color: var(--accent);
+}
+
+.field-select option {
+  background: var(--surface);
+  color: var(--text);
+}
+
+/* ─── DB size indicator ───────────────────────────────────── */
+
+.db-size-info {
+  font-size: var(--font-2xs);
+  color: var(--text-dim);
+  white-space: nowrap;
+  padding: 0 4px;
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+
+/* ─── Modal danger button (delete content) ────────────────── */
+
+.btn-danger.btn-full {
+  color: var(--danger);
+  background: transparent;
+  border: 1px solid var(--danger);
+  opacity: 0.7;
+}
+
+.btn-danger.btn-full:hover:not(:disabled) {
+  opacity: 1;
+  background: rgba(214, 79, 79, 0.1);
+}
+
+/* ─── Settings view ───────────────────────────────────────── */
+
+.settings-content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 4px 0;
+}
+
+.settings-content::-webkit-scrollbar       { width: 6px; }
+.settings-content::-webkit-scrollbar-track { background: transparent; }
+.settings-content::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: 3px; }
+
+.settings-section {
+  padding: 20px 24px;
+}
+
+.settings-section-title {
+  font-size: var(--font-xs);
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 16px;
+}
+
+.settings-rule {
+  height: 1px;
+  background: var(--border);
+  margin: 0 24px;
+}
+
+/* ─── Profile form ────────────────────────────────────────── */
+
+.settings-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.settings-save-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.settings-status {
+  font-size: var(--font-xs);
+  color: var(--text-dim);
+  flex: 1;
+}
+
+.settings-status-ok {
+  color: var(--success);
+}
+
+/* ─── Info rows (Device, About) ───────────────────────────── */
+
+.settings-info-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: var(--bg);
+}
+
+.settings-info-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.settings-info-row:last-child {
+  border-bottom: none;
+}
+
+.settings-info-label {
+  font-size: var(--font-xs);
+  color: var(--text-muted);
+  min-width: 130px;
+  flex-shrink: 0;
+}
+
+.settings-info-value {
+  font-size: var(--font-sm);
+  color: var(--text);
+  flex: 1;
+}
+
+.settings-device-id {
+  font-size: var(--font-xs);
+  color: var(--text-muted);
+  font-family: 'Cascadia Code', 'Consolas', monospace;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  letter-spacing: 0.04em;
+}
+
+/* ─── Sidebar: collections header two-row layout ──────────── */
+/* The collections view header splits into two rows so the      */
+/* secondary action buttons fit comfortably at sidebar widths.  */
+
+.collections-header {
+  flex-direction: column;
+  align-items: stretch;
+  padding: 0;
+  gap: 0;
+}
+
+.collections-header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px 8px;
+}
+
+.collections-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 16px 10px;
+  flex-wrap: wrap;
+}
+
+/* Tighten button padding in the sub-row so buttons fit snugly */
+.collections-header-actions .btn-sm {
+  padding: 4px 10px;
+  font-size: var(--font-xs);
+}
+
+.collections-header-actions .db-size-info {
+  margin-left: auto;
+}
+
+/* ─── Sidebar: update-banner width constraint ─────────────── */
+
+.update-banner {
+  max-width: 100%;
+}

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Collections+ Reader</title>
+  <style>
+    :root { color-scheme: light dark; }
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      max-width: 840px;
+      margin: 0 auto;
+      padding: 0 1.5rem 4rem;
+      line-height: 1.8;
+      font-size: 1.05rem;
+      color: #202020;
+      background: #f8f8f8;
+    }
+    @media (prefers-color-scheme: dark) {
+      body { color: #d4d4d4; background: #181818; }
+      a    { color: #79b9e8; }
+    }
+
+    /* ── Toolbar ─────────────────────────────── */
+    .toolbar {
+      position: sticky;
+      top: 0;
+      background: inherit;
+      border-bottom: 1px solid #e0e0e0;
+      padding: .65rem 0;
+      margin-bottom: 2.2rem;
+      display: flex;
+      gap: .55rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    @media (prefers-color-scheme: dark) { .toolbar { border-color: #2a2a2a; } }
+
+    .btn {
+      padding: 5px 16px;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+      font-size: .83rem;
+      font-family: inherit;
+      line-height: 1.4;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      white-space: nowrap;
+    }
+    .btn-primary { background: #e8963c; color: #1a1005; font-weight: 600; }
+    .btn-primary:hover { background: #f5a84a; }
+    .btn-ghost {
+      background: transparent;
+      border: 1px solid currentColor;
+      opacity: .65;
+      color: inherit;
+    }
+    .btn-ghost:hover { opacity: 1; }
+    .btn-danger { background: transparent; border: 1px solid #d64f4f; color: #d64f4f; opacity: .75; }
+    .btn-danger:hover { opacity: 1; background: rgba(214,79,79,.1); }
+    .btn:disabled { opacity: .35; cursor: not-allowed; }
+    .spacer { flex: 1; }
+    .badge { font-size: .72rem; opacity: .4; white-space: nowrap; }
+
+    /* ── Article ─────────────────────────────── */
+    h1 {
+      font-size: 1.65rem;
+      font-weight: 700;
+      margin: .4rem 0 .35rem;
+      line-height: 1.3;
+    }
+    .meta { color: #888; font-size: .85rem; margin-bottom: 2rem; }
+
+    .notes {
+      background: #fff8ec;
+      border-left: 4px solid #e8963c;
+      padding: .75rem 1rem;
+      margin-bottom: 2rem;
+      border-radius: 0 5px 5px 0;
+      font-size: .95rem;
+    }
+    @media (prefers-color-scheme: dark) { .notes { background: #281e00; } }
+    .notes strong { display: block; margin-bottom: .35rem; color: #e8963c; }
+
+    .content img { max-width: 100%; height: auto; border-radius: 4px; }
+    .content p   { margin: 0 0 1rem; }
+    .content h1, .content h2, .content h3 { margin: 1.5rem 0 .5rem; line-height: 1.3; }
+    .content h2  { font-size: 1.3rem; }
+    .content h3  { font-size: 1.1rem; }
+    .no-content  { color: #888; font-style: italic; }
+    .attribution { font-size: .78rem; color: #aaa; margin: -.5rem 0 1.8rem;
+                   letter-spacing: .01em; }
+    @media (prefers-color-scheme: dark) { .attribution { color: #555; } }
+
+    /* ── Loading / error states ──────────────── */
+    #loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 60vh;
+      color: #888;
+      font-size: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <p id="loading">Loading…</p>
+
+  <div id="reader" style="display:none">
+    <div class="toolbar">
+      <button class="btn btn-primary" id="btn-export">&#8595; Export HTML</button>
+      <a class="btn btn-ghost" id="btn-open-original" href="#" target="_blank">&#8599; Open original</a>
+      <button class="btn btn-danger" id="btn-delete-content">&#128465; Delete content</button>
+      <span class="spacer"></span>
+      <span class="badge">Collections+ reader</span>
+    </div>
+
+    <p class="attribution" id="item-attribution"></p>
+
+    <h1 id="item-title"></h1>
+    <p class="meta" id="item-meta"></p>
+    <div class="notes" id="item-notes" style="display:none">
+      <strong>Your notes</strong>
+      <span id="item-notes-text"></span>
+    </div>
+    <div class="content" id="item-content"></div>
+  </div>
+
+  <script src="reader.js"></script>
+</body>
+</html>

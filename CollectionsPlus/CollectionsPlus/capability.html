@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Collections+ — What it can do</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap');
+
+    :root {
+      --bg:        #1a1f2e;
+      --bg-card:   #222840;
+      --bg-raised: #2a3050;
+      --accent:    #e8963c;
+      --accent-lo: rgba(232,150,60,0.12);
+      --accent-hi: #f5a84a;
+      --text:      #d4d8e8;
+      --text-dim:  #7a83a6;
+      --border:    rgba(255,255,255,0.07);
+      --radius:    10px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 1rem;
+      min-height: 100vh;
+    }
+
+    /* ── Header ─────────────────────────────────────────── */
+    header {
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border);
+      padding: 2.2rem 0 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 120% at 50% -20%, rgba(232,150,60,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 52px; height: 52px;
+      background: var(--accent);
+      border-radius: 14px;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #1a1005;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+      box-shadow: 0 4px 20px rgba(232,150,60,0.35);
+    }
+    header h1 {
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: #fff;
+    }
+    header p {
+      color: var(--text-dim);
+      margin-top: 0.4rem;
+      font-size: 1.05rem;
+    }
+    .header-links {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1.4rem;
+      flex-wrap: wrap;
+    }
+    .header-links a {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      padding: 5px 14px;
+      border: 1px solid rgba(232,150,60,0.35);
+      border-radius: 20px;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .header-links a:hover { background: var(--accent-lo); border-color: var(--accent); }
+
+    /* ── Layout ─────────────────────────────────────────── */
+    main {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
+    }
+
+    /* ── Section headings ───────────────────────────────── */
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #fff;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+    .section-intro {
+      color: var(--text-dim);
+      margin-bottom: 2rem;
+      max-width: 620px;
+    }
+
+    /* ── Feature grid ───────────────────────────────────── */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 3.5rem;
+    }
+    .feature-card {
+      background: var(--bg-card);
+      padding: 1.4rem 1.5rem;
+      transition: background 0.15s;
+    }
+    .feature-card:hover { background: var(--bg-raised); }
+    .feat-icon {
+      font-size: 1.4rem;
+      margin-bottom: 0.65rem;
+      display: block;
+    }
+    .feat-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 0.35rem;
+    }
+    .feat-desc {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      line-height: 1.55;
+    }
+
+    /* ── Detail sections ────────────────────────────────── */
+    .detail-block {
+      margin-bottom: 3.5rem;
+    }
+    .detail-block + .detail-block {
+      border-top: 1px solid var(--border);
+      padding-top: 3rem;
+    }
+
+    /* ── Comparison table ───────────────────────────────── */
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1.2rem;
+      font-size: 0.9rem;
+    }
+    .compare-table th {
+      text-align: left;
+      padding: 0.65rem 1rem;
+      background: var(--bg-raised);
+      color: var(--text-dim);
+      font-weight: 500;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      border-bottom: 1px solid var(--border);
+    }
+    .compare-table th:first-child { border-radius: var(--radius) 0 0 0; }
+    .compare-table th:last-child  { border-radius: 0 var(--radius) 0 0; }
+    .compare-table td {
+      padding: 0.7rem 1rem;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-table tr:hover td { background: rgba(255,255,255,0.02); }
+    .yes { color: #6bcb77; font-weight: 600; }
+    .no  { color: #d64f4f; }
+    .na  { color: var(--text-dim); }
+
+    /* ── Note callout ───────────────────────────────────── */
+    .callout {
+      background: var(--accent-lo);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 0.9rem 1.2rem;
+      font-size: 0.9rem;
+      color: var(--text);
+      margin-top: 1.2rem;
+    }
+    .callout strong { color: var(--accent); }
+
+    /* ── Item list ──────────────────────────────────────── */
+    ul.detail-list {
+      list-style: none;
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+    ul.detail-list li {
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+      font-size: 0.92rem;
+      color: var(--text);
+    }
+    ul.detail-list li::before {
+      content: '›';
+      color: var(--accent);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 0.05em;
+    }
+
+    /* ── Footer ─────────────────────────────────────────── */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-dim);
+      font-size: 0.82rem;
+      border-top: 1px solid var(--border);
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">C+</div>
+  <h1>Collections+</h1>
+  <p>Everything it can do</p>
+  <div class="header-links">
+    <a href="README.md">← Back to README</a>
+    <a href="https://htmlpreview.github.io/?https://github.com/rsk19/CollectionsPlus/blob/main/installation.html">Installation guide →</a>
+    <a href="https://github.com/rsk19/CollectionsPlus/releases/latest">Download latest release</a>
+  </div>
+</header>
+
+<main>
+
+  <!-- ── Overview grid ───────────────────────────────────── -->
+  <div class="detail-block">
+    <div class="section-label">Overview</div>
+    <h2>A complete collections manager for Edge</h2>
+    <p class="section-intro">Save pages, images, and snippets into named collections. Everything is stored locally in a single database file you control.</p>
+
+    <div class="feature-grid">
+      <div class="feature-card">
+        <span class="feat-icon">📁</span>
+        <div class="feat-title">Colour-coded collections</div>
+        <div class="feat-desc">Organise saved pages into named collections, each with an optional description and colour.</div>
+      </div>
+      <div class="feature-card">
+        <span class="feat-icon">📸</span>
+        <div class="feat-title">Automatic screenshots</div>
+        <div class="feat-desc">Captures a screenshot of every page you save. Refresh it any time from the item row.</div>
+      </div>
+      <div class="feature-card">
+        <span class="feat-icon">📝</span>
+        <div class="feat-title">Notes on every item</div>
+        <div class="feat-desc">Add your own notes to any saved page, image, or snippet. Notes are searchable.</div>
+      </div>
+      <div class="feature-card">
+        <span class="feat-icon">🔍</span>
+        <div class="feat-title">Search and filter</div>
+        <div class="feat-desc">Search across collection names or within an open collection by title, URL, or notes.</div>
+      </div>
+      <div class="feature-card">
+        <span class="feat-icon">↕</span>
+        <div class="feat-title">Drag and drop reorder</div>
+        <div class="feat-desc">Reorder both collections and items within a collection by dragging or using arrow buttons.</div>
+      </div>
+      <div class="feature-card">
+        <span class="feat-icon">↗</span>
+        <div class="feat-title">Open all in one click</div>
+        <div class="feat-desc">Open an entire collection as a named, colour-matched tab group with a single click.</div>
+      </div>
+      <div class="feature-card">
+        <span class="feat-icon">☁</span>
+        <div class="feat-title">OneDrive backup</div>
+        <div class="feat-desc">Back up and restore your entire database to OneDrive manually, on your terms.</div>
+      </div>
+      <div class="feature-card">
+        <span class="feat-icon">🔒</span>
+        <div class="feat-title">100% private</div>
+        <div class="feat-desc">No accounts, no servers, no telemetry. Everything stays in a single file on your computer.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Saving items ─────────────────────────────────────── -->
+  <div class="detail-block">
+    <div class="section-label">Saving items</div>
+    <h2>Multiple ways to save</h2>
+    <p class="section-intro">Save to a collection however you prefer — from the sidebar, the right-click menu, or by importing in bulk.</p>
+
+    <ul class="detail-list">
+      <li>Open the sidebar and click <strong>+ Add Current Page</strong> to save the active tab with a screenshot</li>
+      <li>Right-click any page → <strong>Save page to Collections+</strong> → choose a collection — works without opening the sidebar</li>
+      <li>Right-click any image → <strong>Save image to Collections+</strong></li>
+      <li>Right-click any link → <strong>Save link to Collections+</strong></li>
+      <li>Import directly from an Edge Collections SQLite export file</li>
+      <li>Paste copied Edge Collections content directly into the import tool</li>
+      <li>Use <strong>Suggestions</strong> to browse your recent browsing history and batch-add pages to any collection</li>
+    </ul>
+
+    <div class="callout">
+      <strong>Right-click saves:</strong> Screenshots are captured immediately at click time using the active tab. The item appears in the collection the next time you open the sidebar.
+    </div>
+  </div>
+
+  <!-- ── History suggestions ──────────────────────────────── -->
+  <div class="detail-block">
+    <div class="section-label">History suggestions</div>
+    <h2>Add pages from your browsing history</h2>
+    <p class="section-intro">The Suggestions view shows recent browsing history as quick-add candidates — useful for catching up on pages you forgot to save.</p>
+
+    <ul class="detail-list">
+      <li>Filter by time range: Today, Last 3 Days, or all available history</li>
+      <li>See visit count and last visited date for each page</li>
+      <li>Select multiple pages with checkboxes, then add them all to a chosen collection at once</li>
+      <li>Duplicates are automatically skipped — pages already in the target collection are not added again</li>
+      <li>Non-HTTP pages (browser settings, search results) are filtered out automatically</li>
+    </ul>
+  </div>
+
+  <!-- ── Backup and sync ──────────────────────────────────── -->
+  <div class="detail-block">
+    <div class="section-label">Backup &amp; restore</div>
+    <h2>OneDrive backup</h2>
+    <p class="section-intro">The entire database is a single file. Backup copies it to a OneDrive folder you choose; restore replaces your local copy.</p>
+
+    <ul class="detail-list">
+      <li>Choose a OneDrive backup folder once in Settings — a backup is created immediately</li>
+      <li>Back up at any time with one click from the Settings panel</li>
+      <li>Restore shows the backup date and file size before you confirm</li>
+      <li>Use backup and restore to move your collections to a second computer</li>
+    </ul>
+
+    <div class="callout">
+      <strong>Note:</strong> Backup and restore are manual. Collections+ does not sync automatically — back up on one machine and restore on the other when you want to transfer changes.
+    </div>
+  </div>
+
+  <!-- ── Item types ───────────────────────────────────────── -->
+  <div class="detail-block">
+    <div class="section-label">Item types</div>
+    <h2>What can be saved</h2>
+
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>How to save</th>
+          <th>Screenshot</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Page</strong></td>
+          <td>Add Current Page, right-click page or link, history suggestions, import</td>
+          <td class="yes">✓</td>
+          <td class="yes">✓</td>
+        </tr>
+        <tr>
+          <td><strong>Image</strong></td>
+          <td>Right-click image → Save image to Collections+</td>
+          <td class="na">—</td>
+          <td class="yes">✓</td>
+        </tr>
+        <tr>
+          <td><strong>Snippet</strong></td>
+          <td>Edge Collections import</td>
+          <td class="na">—</td>
+          <td class="yes">✓</td>
+        </tr>
+        <tr>
+          <td><strong>Note</strong></td>
+          <td>Edge Collections import</td>
+          <td class="na">—</td>
+          <td class="yes">✓</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ── Version updates ──────────────────────────────────── -->
+  <div class="detail-block">
+    <div class="section-label">Updates</div>
+    <h2>Automatic update notifications</h2>
+    <p class="section-intro">Collections+ checks for new releases on GitHub and shows a banner when one is available.</p>
+
+    <ul class="detail-list">
+      <li>Checks are made at 09:00, 12:00, 18:00, and 21:00 daily using a background alarm</li>
+      <li>An update banner appears on the unlock screen when a newer version is available</li>
+      <li>The banner links directly to the GitHub releases page to download the new version</li>
+      <li>No automatic installation — you choose when to update</li>
+    </ul>
+  </div>
+
+  <!-- ── Privacy ──────────────────────────────────────────── -->
+  <div class="detail-block">
+    <div class="section-label">Privacy</div>
+    <h2>Your data, your machine</h2>
+
+    <ul class="detail-list">
+      <li>All data is stored in a single <code style="font-family:'DM Mono',monospace;font-size:0.88em;color:var(--accent)">collections.db</code> SQLite file in a folder you choose</li>
+      <li>Nothing is sent to any external server except the GitHub version check (no data included — read-only API call)</li>
+      <li>The database can be opened and inspected independently with <a href="https://sqlitebrowser.org/" style="color:var(--accent)">DB Browser for SQLite</a></li>
+      <li>Deleting the extension and its database folder removes everything completely</li>
+    </ul>
+  </div>
+
+</main>
+
+<footer>
+  Collections+ · Built with <a href="https://github.com/sql-js/sql.js">sql.js</a> · <a href="https://github.com/rsk19/CollectionsPlus">GitHub</a>
+</footer>
+
+</body>
+</html>

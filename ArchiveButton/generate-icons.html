@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Archive.is Extension Icon Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .icon-preview {
+            display: flex;
+            gap: 20px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .icon-item {
+            text-align: center;
+        }
+        canvas {
+            border: 1px solid #ccc;
+            margin: 10px 0;
+        }
+        button {
+            background-color: #0078d4;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #106ebe;
+        }
+        .instructions {
+            background-color: #f0f0f0;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Archive.is Extension Icon Generator</h1>
+    
+    <div class="instructions">
+        <h3>Instructions:</h3>
+        <ol>
+            <li>Click the "Download" button below each icon size</li>
+            <li>Save each icon to your extension folder with the exact filename shown</li>
+            <li>Make sure all 4 icons are in the same folder as manifest.json</li>
+        </ol>
+    </div>
+
+    <div class="icon-preview">
+        <div class="icon-item">
+            <h3>16x16</h3>
+            <canvas id="icon16" width="16" height="16"></canvas>
+            <br>
+            <button onclick="downloadIcon('icon16', 'icon16.png')">Download icon16.png</button>
+        </div>
+        <div class="icon-item">
+            <h3>32x32</h3>
+            <canvas id="icon32" width="32" height="32"></canvas>
+            <br>
+            <button onclick="downloadIcon('icon32', 'icon32.png')">Download icon32.png</button>
+        </div>
+        <div class="icon-item">
+            <h3>48x48</h3>
+            <canvas id="icon48" width="48" height="48"></canvas>
+            <br>
+            <button onclick="downloadIcon('icon48', 'icon48.png')">Download icon48.png</button>
+        </div>
+        <div class="icon-item">
+            <h3>128x128</h3>
+            <canvas id="icon128" width="128" height="128"></canvas>
+            <br>
+            <button onclick="downloadIcon('icon128', 'icon128.png')">Download icon128.png</button>
+        </div>
+    </div>
+
+    <button onclick="downloadAll()" style="font-size: 16px; padding: 15px 30px;">Download All Icons</button>
+
+    <script>
+        function drawIcon(canvas) {
+            const ctx = canvas.getContext('2d');
+            const size = canvas.width;
+            
+            // Clear canvas
+            ctx.clearRect(0, 0, size, size);
+            
+            // Draw background circle
+            ctx.fillStyle = '#4CAF50';
+            ctx.beginPath();
+            ctx.arc(size/2, size/2, size/2 - 1, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Draw archive box icon
+            ctx.strokeStyle = 'white';
+            ctx.fillStyle = 'white';
+            ctx.lineWidth = Math.max(1, size / 16);
+            
+            const padding = size * 0.25;
+            const boxSize = size - (padding * 2);
+            
+            // Box outline
+            ctx.strokeRect(padding, padding, boxSize, boxSize);
+            
+            // Horizontal lines (representing archived content)
+            const lineCount = 3;
+            const lineSpacing = boxSize / (lineCount + 1);
+            for (let i = 1; i <= lineCount; i++) {
+                const y = padding + (lineSpacing * i);
+                ctx.beginPath();
+                ctx.moveTo(padding + boxSize * 0.2, y);
+                ctx.lineTo(padding + boxSize * 0.8, y);
+                ctx.stroke();
+            }
+        }
+
+        // Draw all icons
+        drawIcon(document.getElementById('icon16'));
+        drawIcon(document.getElementById('icon32'));
+        drawIcon(document.getElementById('icon48'));
+        drawIcon(document.getElementById('icon128'));
+
+        function downloadIcon(canvasId, filename) {
+            const canvas = document.getElementById(canvasId);
+            canvas.toBlob(function(blob) {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            });
+        }
+
+        function downloadAll() {
+            setTimeout(() => downloadIcon('icon16', 'icon16.png'), 100);
+            setTimeout(() => downloadIcon('icon32', 'icon32.png'), 300);
+            setTimeout(() => downloadIcon('icon48', 'icon48.png'), 500);
+            setTimeout(() => downloadIcon('icon128', 'icon128.png'), 700);
+        }
+    </script>
+</body>
+</html>

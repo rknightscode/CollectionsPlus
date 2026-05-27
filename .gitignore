@@ -1,4 +1,8 @@
-sql files not mine to distribute 
+#Hide folder
+hidden/
+**/hidden/
+
+#sql files not mine to distribute 
 
 sql-wasm.js
 sql-wasm.wasm

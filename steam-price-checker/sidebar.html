@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Steam Price Checker</title>
+  <link rel="stylesheet" href="sidebar.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+<div id="app">
+
+  <header>
+    <div class="header-left">
+      <span class="logo-mark">🎮</span>
+      <span class="logo-text">Steam Price Checker</span>
+    </div>
+    <div class="header-right">
+      <button id="btn-refresh"  class="icon-btn" title="Refresh">↻</button>
+      <button id="btn-settings" class="icon-btn" title="Settings">⚙</button>
+    </div>
+  </header>
+
+  <!-- Idle -->
+  <div id="state-idle" class="state">
+    <div class="idle-icon">🎮</div>
+    <p class="idle-text">Navigate to a Steam store game page to check its price history.</p>
+  </div>
+
+  <!-- Loading -->
+  <div id="state-loading" class="state hidden">
+    <div class="spinner"></div>
+    <p class="loading-text">Fetching price history…</p>
+  </div>
+
+  <!-- Error -->
+  <div id="state-error" class="state hidden">
+    <div class="error-icon">⚠</div>
+    <p id="error-message" class="error-text"></p>
+    <button id="btn-retry" class="retry-btn">Try again</button>
+  </div>
+
+  <!-- No ITAD key -->
+  <div id="state-no-key" class="state hidden">
+    <div class="nokey-icon">🔑</div>
+    <p class="nokey-title">API key needed</p>
+    <p class="nokey-desc">Price history uses <strong>IsThereAnyDeal</strong> — free, but requires a free API key.</p>
+    <ol class="nokey-steps">
+      <li>Visit <a href="https://isthereanydeal.com/dev/app/" target="_blank" rel="noopener">isthereanydeal.com/dev/app</a></li>
+      <li>Register a free app (~1 min)</li>
+      <li>Paste your key into Settings</li>
+    </ol>
+    <button id="btn-nokey-settings" class="retry-btn">Open Settings ⚙</button>
+    <a id="nokey-steamdb-link" href="#" target="_blank" rel="noopener" class="ext-link steamdb-link hidden" style="margin-top:8px;font-size:11px;">View on SteamDB ↗</a>
+  </div>
+
+  <!-- Result -->
+  <div id="state-result" class="state hidden">
+
+    <div class="product-name-wrap">
+      <p id="product-name" class="product-name"></p>
+    </div>
+
+    <div id="verdict-block" class="verdict-block">
+      <div id="verdict-label" class="verdict-label"></div>
+      <div class="price-row">
+        <div id="current-price" class="current-price"></div>
+        <span id="discount-badge" class="discount-badge hidden"></span>
+      </div>
+      <div id="above-low-text" class="above-low-text"></div>
+    </div>
+
+    <div class="range-section">
+      <div class="range-labels">
+        <span class="range-label-text">12m low</span>
+        <span class="range-label-text">12m high</span>
+      </div>
+      <div class="range-track">
+        <div id="range-fill"   class="range-fill"></div>
+        <div id="range-marker" class="range-marker"></div>
+      </div>
+      <div class="range-values">
+        <span id="low-price"  class="range-price low"></span>
+        <span id="high-price" class="range-price high"></span>
+      </div>
+    </div>
+
+    <div id="price-note" class="price-note hidden">
+      <span>ℹ Current price not detected — showing historical range only</span>
+    </div>
+
+    <div class="meta-row">
+      <span id="data-period"     class="meta-chip"></span>
+      <span id="data-points"     class="meta-chip"></span>
+    </div>
+
+    <div class="link-stack">
+      <a id="itad-link"    href="#" target="_blank" rel="noopener" class="ext-link">View full history on IsThereAnyDeal ↗</a>
+      <a id="steamdb-link" href="#" target="_blank" rel="noopener" class="ext-link steamdb-link">View on SteamDB ↗</a>
+    </div>
+
+  </div>
+
+  <!-- Settings -->
+  <div id="settings-panel" class="settings-panel hidden">
+    <h2 class="settings-title">Settings</h2>
+
+    <div class="settings-section">
+      <p class="settings-section-label">IsThereAnyDeal API Key</p>
+      <input type="text" id="s-itad-key" class="key-input" placeholder="Paste your free API key…" spellcheck="false" autocomplete="off">
+      <p class="settings-desc">Get a free key at <a href="https://isthereanydeal.com/dev/app/" target="_blank" rel="noopener" class="settings-link">isthereanydeal.com/dev/app</a></p>
+    </div>
+
+    <div class="settings-divider"></div>
+
+    <p class="settings-section-label">Colour Bands</p>
+    <p class="settings-desc">How far the current price sits above the 12-month low.</p>
+
+    <div class="setting-row">
+      <label class="setting-label">
+        <span class="swatch green-swatch"></span>
+        Green — within
+        <input type="number" id="s-green" class="band-input" min="0" max="100" step="1" value="10">
+        % of 12m low
+      </label>
+    </div>
+
+    <div class="setting-row">
+      <label class="setting-label">
+        <span class="swatch red-swatch"></span>
+        Red — more than
+        <input type="number" id="s-red" class="band-input" min="0" max="200" step="1" value="30">
+        % above 12m low
+      </label>
+    </div>
+
+    <p class="settings-desc orange-note">Orange is everything in between.</p>
+
+    <div class="settings-buttons">
+      <button id="btn-save-settings"  class="save-btn">Save</button>
+      <button id="btn-close-settings" class="cancel-btn">Cancel</button>
+    </div>
+  </div>
+
+</div>
+<script src="sidebar.js"></script>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RegexPlus</title>
+  <link rel="stylesheet" href="sidepanel.css">
+</head>
+<body>
+<div class="app">
+
+  <!-- ── Header ─────────────────────────────────────────────────────── -->
+  <header class="header">
+    <div class="logo">
+      <span class="logo-icon">⌬</span>
+      <span class="logo-text">RegexPlus</span>
+    </div>
+    <span style="font-size:11px;color:var(--text-dim);">Alt+Shift+R on selection</span>
+  </header>
+
+  <!-- ── Regex input ────────────────────────────────────────────────── -->
+  <div class="input-section">
+    <div class="pattern-wrapper">
+      <span class="delimiter">/</span>
+      <input id="patternInput" type="text" class="pattern-input"
+             placeholder="pattern" spellcheck="false" autocomplete="off">
+      <span class="delimiter">/</span>
+      <input id="flagsInput" type="text" class="flags-input"
+             placeholder="flags" maxlength="8" spellcheck="false" autocomplete="off">
+    </div>
+
+    <div class="flag-toggles">
+      <button class="flag-btn" data-flag="g" title="Global — find all matches">g</button>
+      <button class="flag-btn" data-flag="i" title="Case-insensitive">i</button>
+      <button class="flag-btn" data-flag="m" title="Multiline — ^ and $ match line boundaries">m</button>
+      <button class="flag-btn" data-flag="s" title="Dot-all — . matches newline too">s</button>
+      <button class="flag-btn" data-flag="u" title="Unicode mode">u</button>
+      <button class="flag-btn" data-flag="d" title="Indices — include match indices">d</button>
+    </div>
+
+    <div class="status-bar" id="statusBar">
+      <span class="status-dot"></span>
+      <span class="status-text" id="statusText">Enter a pattern above</span>
+    </div>
+  </div>
+
+  <!-- ── Tabs ───────────────────────────────────────────────────────── -->
+  <div class="tabs">
+    <button class="tab active" data-tab="railroad">Railroad</button>
+    <button class="tab"        data-tab="tree">Tree</button>
+    <button class="tab"        data-tab="test">Test</button>
+    <button class="tab"        data-tab="ref">Ref</button>
+  </div>
+
+  <!-- ── Content ────────────────────────────────────────────────────── -->
+  <div class="content">
+
+    <!-- Railroad tab -->
+    <div class="tab-panel active" id="panel-railroad">
+      <div class="viz-wrap" id="railroadViz">
+        <!-- SVG injected here -->
+      </div>
+      <div class="node-info hidden" id="nodeInfo">
+        <div class="node-info-header">
+          <span class="node-info-type" id="nodeInfoType">—</span>
+          <button class="close-btn" id="closeNodeInfo" title="Close">×</button>
+        </div>
+        <div class="node-info-body" id="nodeInfoBody"></div>
+      </div>
+    </div>
+
+    <!-- Tree tab -->
+    <div class="tab-panel hidden" id="panel-tree">
+      <div class="viz-wrap" id="treeViz">
+        <!-- SVG injected here -->
+      </div>
+    </div>
+
+    <!-- Test tab -->
+    <div class="tab-panel hidden" id="panel-test">
+      <div class="test-panel">
+        <div>
+          <label class="section-label" for="testInput">Test string</label>
+          <textarea id="testInput" class="test-input"
+                    placeholder="Paste or type text to test against the regex…"
+                    rows="4"></textarea>
+        </div>
+        <div class="test-status" id="testStatus">—</div>
+        <div>
+          <div class="section-label">Highlighted matches</div>
+          <div class="output-box" id="testOutput">—</div>
+        </div>
+        <div class="match-list" id="matchList"></div>
+      </div>
+    </div>
+
+    <!-- Reference tab -->
+    <div class="tab-panel hidden" id="panel-ref">
+      <div class="ref-panel">
+
+        <div class="ref-section">
+          <div class="ref-heading">Anchors &amp; boundaries</div>
+          <table class="ref-table">
+            <tr><td>^</td><td>Start of string (or line in multiline)</td></tr>
+            <tr><td>$</td><td>End of string (or line in multiline)</td></tr>
+            <tr><td>\b</td><td>Word boundary</td></tr>
+            <tr><td>\B</td><td>Non-word boundary</td></tr>
+          </table>
+        </div>
+
+        <div class="ref-section">
+          <div class="ref-heading">Character classes</div>
+          <table class="ref-table">
+            <tr><td>.</td><td>Any character except newline</td></tr>
+            <tr><td>\d</td><td>Digit [0-9]</td></tr>
+            <tr><td>\D</td><td>Non-digit</td></tr>
+            <tr><td>\w</td><td>Word character [a-zA-Z0-9_]</td></tr>
+            <tr><td>\W</td><td>Non-word character</td></tr>
+            <tr><td>\s</td><td>Whitespace [ \t\n\r\f\v]</td></tr>
+            <tr><td>\S</td><td>Non-whitespace</td></tr>
+            <tr><td>[abc]</td><td>Character class — matches a, b, or c</td></tr>
+            <tr><td>[^abc]</td><td>Negated class — not a, b, or c</td></tr>
+            <tr><td>[a-z]</td><td>Range — any lowercase letter</td></tr>
+          </table>
+        </div>
+
+        <div class="ref-section">
+          <div class="ref-heading">Quantifiers</div>
+          <table class="ref-table">
+            <tr><td>*</td><td>0 or more (greedy)</td></tr>
+            <tr><td>+</td><td>1 or more (greedy)</td></tr>
+            <tr><td>?</td><td>0 or 1 — optional</td></tr>
+            <tr><td>*?&nbsp;+?&nbsp;??</td><td>Lazy — match as few as possible</td></tr>
+            <tr><td>{n}</td><td>Exactly n times</td></tr>
+            <tr><td>{n,}</td><td>n or more times</td></tr>
+            <tr><td>{n,m}</td><td>Between n and m times</td></tr>
+          </table>
+        </div>
+
+        <div class="ref-section">
+          <div class="ref-heading">Groups</div>
+          <table class="ref-table">
+            <tr><td>(...)</td><td>Capturing group</td></tr>
+            <tr><td>(?:...)</td><td>Non-capturing group</td></tr>
+            <tr><td>(?&lt;name&gt;...)</td><td>Named capturing group</td></tr>
+            <tr><td>a|b</td><td>Alternation — a or b</td></tr>
+          </table>
+        </div>
+
+        <div class="ref-section">
+          <div class="ref-heading">Lookaround</div>
+          <table class="ref-table">
+            <tr><td>(?=...)</td><td>Positive lookahead</td></tr>
+            <tr><td>(?!...)</td><td>Negative lookahead</td></tr>
+            <tr><td>(?&lt;=...)</td><td>Positive lookbehind</td></tr>
+            <tr><td>(?&lt;!...)</td><td>Negative lookbehind</td></tr>
+          </table>
+        </div>
+
+        <div class="ref-section">
+          <div class="ref-heading">Escape sequences</div>
+          <table class="ref-table">
+            <tr><td>\n</td><td>Newline</td></tr>
+            <tr><td>\t</td><td>Tab</td></tr>
+            <tr><td>\r</td><td>Carriage return</td></tr>
+            <tr><td>\xNN</td><td>Hex character (e.g. \x41 = A)</td></tr>
+            <tr><td>\uNNNN</td><td>Unicode code point</td></tr>
+            <tr><td>\\</td><td>Literal backslash</td></tr>
+          </table>
+        </div>
+
+      </div>
+    </div>
+
+  </div><!-- .content -->
+</div><!-- .app -->
+
+<script src="regex-parser.js"></script>
+<script src="railroad.js"></script>
+<script src="tree.js"></script>
+<script src="sidepanel.js"></script>
+</body>
+</html>

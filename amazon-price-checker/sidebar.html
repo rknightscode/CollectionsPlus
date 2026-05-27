@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Price Checker</title>
+  <link rel="stylesheet" href="sidebar.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="app">
+
+    <!-- Header -->
+    <header>
+      <div class="header-left">
+        <span class="logo-mark">▲</span>
+        <span class="logo-text">Price Checker</span>
+      </div>
+      <div class="header-right">
+        <button id="btn-refresh" class="icon-btn" title="Refresh" aria-label="Refresh price data">↻</button>
+        <button id="btn-settings" class="icon-btn" title="Settings" aria-label="Open settings">⚙</button>
+      </div>
+    </header>
+
+    <!-- States -->
+    <div id="state-idle" class="state">
+      <div class="idle-icon">🛍</div>
+      <p class="idle-text">Navigate to an Amazon.co.uk product page to check the price.</p>
+    </div>
+
+    <div id="state-loading" class="state hidden">
+      <div class="spinner"></div>
+      <p class="loading-text">Checking CamelCamelCamel…</p>
+    </div>
+
+    <div id="state-error" class="state hidden">
+      <div class="error-icon">⚠</div>
+      <p id="error-message" class="error-text"></p>
+      <button id="btn-retry" class="retry-btn">Try again</button>
+    </div>
+
+    <div id="state-result" class="state hidden">
+
+      <!-- Product name -->
+      <div class="product-name-wrap">
+        <p id="product-name" class="product-name"></p>
+      </div>
+
+      <!-- Price verdict -->
+      <div id="verdict-block" class="verdict-block">
+        <div id="verdict-label" class="verdict-label"></div>
+        <div id="current-price" class="current-price"></div>
+        <div id="above-low-text" class="above-low-text"></div>
+      </div>
+
+      <!-- Range bar -->
+      <div class="range-section">
+        <div class="range-labels">
+          <span class="range-label-text">12m low</span>
+          <span class="range-label-text">12m high</span>
+        </div>
+        <div class="range-track">
+          <div id="range-fill" class="range-fill"></div>
+          <div id="range-marker" class="range-marker"></div>
+        </div>
+        <div class="range-values">
+          <span id="low-price"  class="range-price low"></span>
+          <span id="high-price" class="range-price high"></span>
+        </div>
+      </div>
+
+      <!-- Amazon current price note (if price not extracted) -->
+      <div id="amazon-price-note" class="amazon-price-note hidden">
+        <span class="note-icon">ℹ</span>
+        <span>Current Amazon price not detected — using CCC data only</span>
+      </div>
+
+      <!-- Metadata -->
+      <div class="meta-row">
+        <span id="data-period" class="meta-chip"></span>
+        <span id="confidence-chip" class="meta-chip"></span>
+      </div>
+
+      <!-- CCC link -->
+      <a id="ccc-link" href="#" target="_blank" rel="noopener" class="ccc-link">
+        View full history on CamelCamelCamel ↗
+      </a>
+
+    </div><!-- /#state-result -->
+
+    <!-- Settings panel (in-sidebar) -->
+    <div id="settings-panel" class="settings-panel hidden">
+      <h2 class="settings-title">Band Settings</h2>
+      <p class="settings-desc">Colour bands are based on how far the current price sits above the 12-month low.</p>
+
+      <div class="setting-row">
+        <label class="setting-label">
+          <span class="swatch green-swatch"></span>
+          Green — within
+          <input type="number" id="s-green" class="band-input" min="0" max="100" step="1" value="10">
+          % of 12m low
+        </label>
+      </div>
+
+      <div class="setting-row">
+        <label class="setting-label">
+          <span class="swatch red-swatch"></span>
+          Red — more than
+          <input type="number" id="s-red" class="band-input" min="0" max="200" step="1" value="30">
+          % above 12m low
+        </label>
+      </div>
+
+      <p class="settings-desc orange-note">Orange is everything in between.</p>
+
+      <div class="settings-buttons">
+        <button id="btn-save-settings" class="save-btn">Save</button>
+        <button id="btn-close-settings" class="cancel-btn">Cancel</button>
+      </div>
+    </div>
+
+  </div><!-- /#app -->
+
+  <script src="sidebar.js"></script>
+</body>
+</html>

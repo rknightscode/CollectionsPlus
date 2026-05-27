@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Collections+ — Installation guide</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap');
+
+    :root {
+      --bg:        #1a1f2e;
+      --bg-card:   #222840;
+      --bg-raised: #2a3050;
+      --accent:    #e8963c;
+      --accent-lo: rgba(232,150,60,0.12);
+      --accent-hi: #f5a84a;
+      --text:      #d4d8e8;
+      --text-dim:  #7a83a6;
+      --border:    rgba(255,255,255,0.07);
+      --radius:    10px;
+      --green:     #6bcb77;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 1rem;
+      min-height: 100vh;
+    }
+
+    /* ── Header ─────────────────────────────────────────── */
+    header {
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border);
+      padding: 2.2rem 0 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 120% at 50% -20%, rgba(232,150,60,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 52px; height: 52px;
+      background: var(--accent);
+      border-radius: 14px;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #1a1005;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+      box-shadow: 0 4px 20px rgba(232,150,60,0.35);
+    }
+    header h1 {
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: #fff;
+    }
+    header p {
+      color: var(--text-dim);
+      margin-top: 0.4rem;
+      font-size: 1.05rem;
+    }
+    .header-links {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1.4rem;
+      flex-wrap: wrap;
+    }
+    .header-links a {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      padding: 5px 14px;
+      border: 1px solid rgba(232,150,60,0.35);
+      border-radius: 20px;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .header-links a:hover { background: var(--accent-lo); border-color: var(--accent); }
+
+    /* ── Layout ─────────────────────────────────────────── */
+    main {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
+    }
+
+    /* ── Requirements bar ───────────────────────────────── */
+    .requirements {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
+    }
+    .req-pill {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.55rem 1rem;
+      font-size: 0.88rem;
+    }
+    .req-pill span { color: var(--accent); font-size: 1rem; }
+
+    /* ── Steps ──────────────────────────────────────────── */
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .part-heading {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 2.5rem 0 1.2rem;
+    }
+    .part-heading:first-child { margin-top: 0; }
+    .part-badge {
+      background: var(--accent);
+      color: #1a1005;
+      font-weight: 700;
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 20px;
+      flex-shrink: 0;
+    }
+    .part-heading h2 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #fff;
+      letter-spacing: -0.01em;
+    }
+
+    .step {
+      display: flex;
+      gap: 1.2rem;
+      padding: 1.1rem 0;
+      border-bottom: 1px solid var(--border);
+      align-items: flex-start;
+    }
+    .step:last-child { border-bottom: none; }
+    .step-num {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      background: var(--bg-raised);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-top: 0.1rem;
+    }
+    .step-body {
+      flex: 1;
+    }
+    .step-title {
+      font-weight: 600;
+      color: #fff;
+      font-size: 0.95rem;
+      margin-bottom: 0.3rem;
+    }
+    .step-desc {
+      color: var(--text-dim);
+      font-size: 0.88rem;
+      line-height: 1.55;
+    }
+    .step-desc p + p { margin-top: 0.4rem; }
+
+    /* ── Callout ────────────────────────────────────────── */
+    .callout {
+      background: var(--accent-lo);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 0.9rem 1.2rem;
+      font-size: 0.88rem;
+      color: var(--text);
+      margin: 0.8rem 0 0.2rem;
+    }
+    .callout strong { color: var(--accent); }
+    .callout.warn {
+      background: rgba(214,79,79,0.1);
+      border-color: #d64f4f;
+    }
+    .callout.warn strong { color: #d64f4f; }
+    .callout.ok {
+      background: rgba(107,203,119,0.1);
+      border-color: var(--green);
+    }
+    .callout.ok strong { color: var(--green); }
+
+    /* ── Code / kbd ─────────────────────────────────────── */
+    code {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.85em;
+      background: var(--bg-raised);
+      padding: 1px 6px;
+      border-radius: 4px;
+      color: var(--accent);
+    }
+    kbd {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.82em;
+      background: var(--bg-raised);
+      border: 1px solid var(--border);
+      border-bottom: 2px solid rgba(255,255,255,0.12);
+      padding: 2px 7px;
+      border-radius: 5px;
+      color: var(--text);
+    }
+
+    /* ── File tree ──────────────────────────────────────── */
+    .file-tree {
+      background: var(--bg-raised);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.2rem;
+      margin: 0.8rem 0;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.83rem;
+      line-height: 1.8;
+      color: var(--text-dim);
+    }
+    .file-tree .hl { color: var(--accent); }
+    .file-tree .ok { color: var(--green); }
+
+    /* ── Troubleshooting ────────────────────────────────── */
+    .trouble-item {
+      margin-bottom: 1.4rem;
+      padding-bottom: 1.4rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .trouble-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .trouble-q {
+      font-weight: 600;
+      color: #fff;
+      font-size: 0.92rem;
+      margin-bottom: 0.35rem;
+    }
+    .trouble-a {
+      color: var(--text-dim);
+      font-size: 0.88rem;
+    }
+
+    .section-gap { margin-top: 3rem; padding-top: 3rem; border-top: 1px solid var(--border); }
+
+    /* ── Footer ─────────────────────────────────────────── */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-dim);
+      font-size: 0.82rem;
+      border-top: 1px solid var(--border);
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">C+</div>
+  <h1>Collections+</h1>
+  <p>Installation guide</p>
+  <div class="header-links">
+    <a href="README.md">← Back to README</a>
+    <a href="https://htmlpreview.github.io/?https://github.com/rsk19/CollectionsPlus/blob/main/capability.html">What it can do</a>
+    <a href="https://github.com/rsk19/CollectionsPlus/releases/latest">Download latest release</a>
+  </div>
+</header>
+
+<main>
+
+  <!-- Requirements -->
+  <div class="requirements">
+    <div class="req-pill"><span>🌐</span> Microsoft Edge (any recent version)</div>
+    <div class="req-pill"><span>🪟</span> Windows 10 or 11</div>
+    <div class="req-pill"><span>⏱</span> About 10 minutes</div>
+  </div>
+
+  <div class="steps">
+
+    <!-- Part 1 -->
+    <div class="part-heading">
+      <span class="part-badge">Part 1</span>
+      <h2>Download the extension files</h2>
+    </div>
+
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <div class="step-title">Download the latest release</div>
+        <div class="step-desc">
+          Go to the <a href="https://github.com/rsk19/CollectionsPlus/releases/latest" style="color:var(--accent)">releases page</a> on GitHub and download <strong>CollectionsPlus.zip</strong> from the Assets section.
+          <div class="callout warn"><strong>Do not</strong> use the green "Code → Download ZIP" button on the main repo page — that downloads the source, not the packaged release.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <div class="step-title">Extract the ZIP</div>
+        <div class="step-desc">Right-click the downloaded ZIP and choose <strong>Extract All</strong>. Choose somewhere easy to find, such as your Documents folder. You will end up with a folder called <strong>CollectionsPlus</strong> — remember where it is.</div>
+      </div>
+    </div>
+
+    <!-- Part 2 -->
+    <div class="part-heading">
+      <span class="part-badge">Part 2</span>
+      <h2>Download the sql.js library files</h2>
+    </div>
+
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <div class="step-title">Go to the sql.js releases page</div>
+        <div class="step-desc">
+          Open <a href="https://github.com/sql-js/sql.js/releases/latest" style="color:var(--accent)">github.com/sql-js/sql.js/releases/latest</a> in your browser. Scroll past the release notes to the <strong>Assets</strong> section and download <strong>sqljs.zip</strong>.
+          <div class="callout warn"><strong>Do not</strong> click "Source code (zip)" — that is not the right file.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <div class="step-title">Copy two files into your CollectionsPlus folder</div>
+        <div class="step-desc">
+          Open the downloaded <strong>sqljs.zip</strong> and copy these two files into your <strong>CollectionsPlus</strong> folder:
+          <div class="file-tree">
+            CollectionsPlus/<br>
+            &nbsp;&nbsp;manifest.json<br>
+            &nbsp;&nbsp;popup.html<br>
+            &nbsp;&nbsp;popup.js<br>
+            &nbsp;&nbsp;popup.css<br>
+            &nbsp;&nbsp;db.js<br>
+            &nbsp;&nbsp;background.js<br>
+            &nbsp;&nbsp;<span class="hl ok">sql-wasm.js &nbsp;&nbsp;&nbsp;← copy this in</span><br>
+            &nbsp;&nbsp;<span class="hl ok">sql-wasm.wasm &nbsp;← and this</span><br>
+            &nbsp;&nbsp;icons/
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Part 3 -->
+    <div class="part-heading">
+      <span class="part-badge">Part 3</span>
+      <h2>Load the extension into Edge</h2>
+    </div>
+
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-body">
+        <div class="step-title">Open Edge extensions</div>
+        <div class="step-desc">In the Edge address bar, type <code>edge://extensions</code> and press <kbd>Enter</kbd>.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">6</div>
+      <div class="step-body">
+        <div class="step-title">Turn on Developer mode</div>
+        <div class="step-desc">In the top-right corner of the extensions page, toggle <strong>Developer mode</strong> on. Two new buttons will appear.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">7</div>
+      <div class="step-body">
+        <div class="step-title">Load the extension folder</div>
+        <div class="step-desc">Click <strong>Load unpacked</strong>, navigate to your <strong>CollectionsPlus</strong> folder, and click <strong>Select Folder</strong>. Collections+ will appear in the extensions list.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">8</div>
+      <div class="step-body">
+        <div class="step-title">Pin Collections+ to the toolbar</div>
+        <div class="step-desc">
+          If you don't see the <strong>C+</strong> icon in the Edge toolbar, click the puzzle piece (🧩) icon and pin Collections+ from the list.
+          <div class="callout ok"><strong>Done.</strong> The extension is installed. Continue to first launch setup below.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Part 4 — First launch -->
+    <div class="part-heading">
+      <span class="part-badge">Part 4</span>
+      <h2>First launch setup</h2>
+    </div>
+
+    <div class="step">
+      <div class="step-num">9</div>
+      <div class="step-body">
+        <div class="step-title">Open Collections+</div>
+        <div class="step-desc">Click the <strong>C+</strong> icon in the toolbar. The sidebar will open and show the setup screen.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">10</div>
+      <div class="step-body">
+        <div class="step-title">Choose a storage folder</div>
+        <div class="step-desc">
+          Click <strong>Choose Folder</strong> and select a folder on your computer where you want Collections+ to store its database. A file called <code>collections.db</code> will be created there.
+          <div class="callout">A good choice is your <strong>Documents</strong> folder or a subfolder inside it. Avoid choosing a folder inside your OneDrive — that folder is used separately for backups.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">11</div>
+      <div class="step-body">
+        <div class="step-title">You're ready</div>
+        <div class="step-desc">
+          Collections+ will open and show your (empty) collections list. Create your first collection with <strong>+ New</strong> and start saving pages.
+          <div class="callout ok"><strong>Tip:</strong> Each time you start Edge, click <strong>Unlock Collections</strong> when you first open the sidebar. This is a one-click browser security requirement — Edge asks you to confirm folder access once per session.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── Troubleshooting ──────────────────────────────────── -->
+  <div class="section-gap">
+    <div style="font-size:0.72rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;">Troubleshooting</div>
+    <h2 style="font-size:1.5rem;font-weight:600;color:#fff;letter-spacing:-0.02em;margin-bottom:1.5rem;">Common issues</h2>
+
+    <div class="trouble-item">
+      <div class="trouble-q">I don't see the C+ icon in the toolbar</div>
+      <div class="trouble-a">Click the puzzle piece (🧩) icon in the Edge toolbar, find Collections+ in the list, and click the pin icon next to it.</div>
+    </div>
+
+    <div class="trouble-item">
+      <div class="trouble-q">"Unlock Collections" appears every time I start Edge</div>
+      <div class="trouble-a">This is normal and by design. Edge requires you to confirm folder access once per browser session. Click the button — it takes one second and your collections load immediately.</div>
+    </div>
+
+    <div class="trouble-item">
+      <div class="trouble-q">A saved page shows a black or blank screenshot</div>
+      <div class="trouble-a">Some pages block screenshots for security reasons (banking sites, Edge's own settings pages). The page is saved correctly with its title and address — only the thumbnail is missing. You can leave it blank or refresh it when you're on a page where capture is allowed.</div>
+    </div>
+
+    <div class="trouble-item">
+      <div class="trouble-q">The extension shows an error after I update the files</div>
+      <div class="trouble-a">Go to <code>edge://extensions</code>, find Collections+, and click the reload (↺) button. This refreshes the extension with the new files.</div>
+    </div>
+
+    <div class="trouble-item">
+      <div class="trouble-q">Edge asks to confirm new permissions after an update</div>
+      <div class="trouble-a">This is expected when a new version adds permissions (such as right-click context menu or history access). Review the permissions prompt and click Accept to continue using the extension.</div>
+    </div>
+
+    <div class="trouble-item">
+      <div class="trouble-q">I accidentally deleted a collection</div>
+      <div class="trouble-a">If you have a recent backup in OneDrive, restore from it via the Settings panel (⚙ icon). This is a good reason to back up regularly before making bulk changes.</div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  Collections+ · Built with <a href="https://github.com/sql-js/sql.js">sql.js</a> · <a href="https://github.com/rsk19/CollectionsPlus">GitHub</a>
+</footer>
+
+</body>
+</html>
